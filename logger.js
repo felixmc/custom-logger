@@ -1,54 +1,71 @@
 var dateFormat = require('dateformat'),
 	colors = require('colors');
 
-var log_level = 3,
-	timestamp = "HH:MM:ss";
-
-/*
-	LOGGING:
-	0 => nothing
-	1 => only errors
-	2 => error + warnings only
-	3 => everything
-*/
+var log = {
+	events: { info: { color: 'green', level: 0 }, warning: { color: 'yellow', level: 1 }, error: { color: 'red', level: 2 } },
+	level: 3,
+	logformat: "%time% - %event%:%padding%  %message%",
+	timeformat: "HH:MM:ss",
+	padding: function(event) {
+		var length = 0,
+			padding = '',
+			event = event || '';
+		for(var key in this.events) {
+			if(this.events.hasOwnProperty(key))
+				length = length < key.length ? key.length : length;
+		}
+		for(var i=0;i<length-event.length;i++) { padding += ' ' }
+		return padding;
+	},
+	output: function(message, event) {
+		/*
+			EVENTS:
+			0 => info
+			1 => warning
+			2 => error
+		*/
+		if(event == undefined) {
+			console.log( typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message );
+		} else if(this.level >= this.events[event].level ) {
+			message = typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message;
+			var output = this.logformat
+						.replace( '%time%', dateFormat( new Date(), this.timeformat ) ) //timestamp
+						.replace( '%event%', event[ this.events[event].color ] ) //log event & color
+						.replace( '%padding%', this.padding( event ) )
+						.replace( '%message%', message );
+			console.log( output );
+		}
+	}
+};
 
 exports.level = function(level) {
-	log_level = level;
+	log.level = level;
 }
 
-exports.timeFormat = function(format) {
-	timestamp = format;
+exports.format = function(format) {
+	log.logformat = format;
+}
+
+exports.timestamp = function(format) {
+	log.timeformat = format;
+}
+
+exports.new = function(options) {
+	if( log.events[ options.name ] == undefined )
+		log.events[ options.name ] = { color: options.color || 'green', level: options.level || 0 };	
+	else
+		log.events[ options.name ] = { color: options.color || log.events[ options.name ].color, level: options.level || log.events[ options.level ] };
+	return function(message) { log.output(message, options.name) }
 }
 
 exports.info = function(message) {
-	this.log(message, 0);
+	log.output(message, "info");
 }
 
 exports.warn = function(message) {
-	this.log(message, 1);
+	log.output(message, "warning");
 }
 
 exports.error = function(message) {
-	this.log(message, 2);
-}
-
-exports.log = function(message, event_type) {
-/*
-	EVENTS:
-	0 => info
-	1 => warning
-	2 => error
-*/
-	if(event_type == undefined) event_type = 0;
-	if(log_level >= (3 - event_type) ) {
-		var events = [ { name: 'info', color: 'green', padding: '    ' }, { name: 'warning', color: 'yellow', padding: ' ' }, { name: 'error', color: 'red', padding: '   ' } ],
-			base = dateFormat( new Date(), timestamp ) + //timestamp
-			' - ' + (events[event_type].name)[ events[event_type].color ] + ':' + //colored log type
-			events[event_type].padding + ' '; //padding
-		if(typeof message == "object") {
-			console.log( base + "%j", message );
-		} else {
-			console.log( base + message );
-		}
-	}
+	log.output(message, "error");
 }
