@@ -1,7 +1,7 @@
-
+/*
 var log = require('./logger');
 
-log.level(3);
+log.level(1);
 
 //log.format('%event%: %message%');
 
@@ -16,3 +16,4 @@ log.warn( 'carefule there, world!' );
 log.error( 'WTF world?!' );
 
 log.debug( "here's some info to help you fix your problem!" );
+*/

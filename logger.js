@@ -26,7 +26,7 @@ var log = {
 		*/
 		if(event == undefined) {
 			console.log( typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message );
-		} else if(this.level >= this.events[event].level ) {
+		} else if(this.level <= this.events[event].level ) {
 			message = typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message;
 			var output = this.logformat
 						.replace( '%time%', dateFormat( new Date(), this.timeformat ) ) //timestamp
