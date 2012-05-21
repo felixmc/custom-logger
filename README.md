@@ -18,7 +18,7 @@ If you have any questions or feedback or need any help using this module, please
 
 The above code will render to: 
 
-![basic output snapshot](snapshots/basic.png)
+![basic output snapshot](https://github.com/felixmc/custom-logger/raw/master/snapshots/basic.png)
 
 `custom-logger` uses logging levels and different logging events to determine what is being outputed at any given time. Below are the default logging events and their respective logging levels:
 
