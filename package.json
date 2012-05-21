@@ -1,16 +1,38 @@
 {
-    "name": "custom-logger",
-    "description": "custom logger",
-    "version": "0.1",
-    "author": "Felix Milea-Ciobanu",
-    "maintainers": "Felix Milea-Ciobanu <felixmilea@gmail.com>",
-    "homepage": "",
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/Marak/colors.js.git"
-    },
-    "engines": {
-        "node": ">=0.1.90"
-    },
-    "main": "logger"
+	"name": "custom-logger",
+	"description": "Highly customizable console logger for node.js. Supports templating of logged output, custom levels, custom log types, colored output, and custom date formatting. Really simple to set up and use.",
+	"version": "0.1.0",
+	"author": "Felix Milea-Ciobanu <felixmilea@gmail.com> (http://felixmc.com/)",
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/felixmc/custom-logger.git"
+	},
+	"main": "logger",
+	"engines": {
+		"node": ">=0.1.90"
+	},
+	"dependencies": {
+		"colors": "0.6.0-1",
+		"dateformat": "1.0.2-1.2.3"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/MIT"
+		}
+	],
+	"keywords": [
+		"log",
+		"logger",
+		"logging",
+		"color",
+		"colour",
+		"timestamp",
+		"custom",
+		"console",
+		"warning",
+		"error",
+		"debug",
+		"template"
+	]
 }
