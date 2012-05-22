@@ -15,12 +15,6 @@ function log_event( options ) {
 	this.color = options.color || 'green';
 };
 
-log_event.prototype.setName = function(name) { this.name = name };
-
-log_event.prototype.setLevel = function(level) { this.level = level };
-
-log_event.prototype.setColor = function(color) { this.color = color };
-
 log_event.prototype.config = function( config ) {
 	for(var key in config) {
 		this[key] = config[key];
