@@ -1,6 +1,6 @@
 # custom-logger
 
-`custom-logger` is a simple, yet highly customizable logging plugin for node.js.
+`custom-logger` is a simple, highly customizable logging plugin for node.js.
 
 To install this module simply run:
 
@@ -31,11 +31,11 @@ The above code will render to:
 	1 => warn
 	2 => error
 
-As you can see above, you can use the `level` parameter in the `config` method to set the current logging level. You can call the `config` method on the `log` object multiple times throughout your code to change the log level or other options.
+As you can see above, you can use the level parameter in the config method to set the current logging level. You can call on the config method on the log object at any time throughout your code to change the log level or other options.
 
 `custom-log` will only show events whose level is **equal to or higher** than the one set. For example a level of `0` will show all event types, whereas a level of `1` will only show the event types `warning` and `error`. By default the logging level is `0`.
 
-You can pass any number of parameters to a logging method like `log.info()` or `log.error`, regardless of it's a default method or one that you created (see below). `custom-logger` will join all parameters together in one string, converting JSON and other non-string parameters to strings automatically.
+You can pass any number of parameters to logging methods (like log.info() or log.error), regardless of whether they are a default method or one that you created (see below). custom-logger will join all parameters together in one string, converting JSON and other non-string parameters to strings automatically.
 
 ## Customizing Events Types
 
