@@ -1,12 +1,8 @@
 
-var log = require('./logger');
+var log = require('./logger').config({ level: 0 });
 
-//log.level(1);
-
-//log.format('%event%: %message%');
-
-log.config({ dateformat: "HH" });
-
-log.info( 'something happened', { header: "HTTP v1.1", status: "200" } );
-
-log.error( 'SHIT' );
+log.info( 'hello world!' );
+	
+log.warn( 'carefule there, world!' );
+	
+log.error( 'WHOA WHOA WHOA world?!' );

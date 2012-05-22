@@ -5,8 +5,8 @@ var events = { };
 
 var options = {
 	level: 0,
-	logformat: "%time% - %event%:%padding%  %message%",
-	timeformat: "HH:MM:ss"
+	format: "%timestamp% - %event%:%padding%  %message%",
+	timestamp: "HH:MM:ss"
 };
 
 function log_event( options ) {
@@ -20,6 +20,13 @@ log_event.prototype.setName = function(name) { this.name = name };
 log_event.prototype.setLevel = function(level) { this.level = level };
 
 log_event.prototype.setColor = function(color) { this.color = color };
+
+log_event.prototype.config = function( config ) {
+	for(var key in config) {
+		this[key] = config[key];
+	}
+	return this;
+}
 
 log_event.prototype.__defineGetter__ ('padding', function() {
 	var length = 0,
@@ -38,9 +45,9 @@ log_event.prototype.output = function(input) {
 		for(var i in input) {
 			message += " " + ( typeof input[i] == "object" ? JSON.stringify( input[i], null ) : input[i] );
 		}
-		var format = this.logformat || options.logformat;
+		var format = this.format || options.format;
 			output = format
-					.replace( '%time%', dateFormat( new Date(), this.timeformat || options.timeformat ) ) //timestamp
+					.replace( '%timestamp%', dateFormat( new Date(), this.timestamp || options.timestamp ) ) //timestamp
 					.replace( '%event%', this.event[ this.color ] ) //log event & color
 					.replace( '%padding%', this.padding )
 					.replace( '%message%', message );
@@ -66,6 +73,7 @@ exports.new = function(newEvents) {
 		events[event] = new log_event( newEvents[event] );
 		this[event] = nFn(event);
 	}
+	return this;
 }
 
 exports.new({
