@@ -1,19 +1,12 @@
-/*
+
 var log = require('./logger');
 
-log.level(1);
+//log.level(1);
 
 //log.format('%event%: %message%');
 
-log.debug = log.new({ name: 'debug', color: 'yellow' });
+log.config({ dateformat: "HH" });
 
+log.info( 'something happened', { header: "HTTP v1.1", status: "200" } );
 
-
-log.info( 'hello world' );
-
-log.warn( 'carefule there, world!' );
-
-log.error( 'WTF world?!' );
-
-log.debug( "here's some info to help you fix your problem!" );
-*/
+log.error( 'SHIT' );

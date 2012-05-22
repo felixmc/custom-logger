@@ -32,12 +32,15 @@ log_event.prototype.__defineGetter__ ('padding', function() {
 	return padding;
 });
 
-log_event.prototype.output = function(message, event) {
+log_event.prototype.output = function(input) {
 	if(options.level <= this.level ) {
-		message = typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message;
+		var message = '';
+		for(var i in input) {
+			message += " " + ( typeof input[i] == "object" ? JSON.stringify( input[i], null ) : input[i] );
+		}
 		var format = this.logformat || options.logformat;
 			output = format
-					.replace( '%time%', dateFormat( new Date(), this.timeformat || options.dateformat ) ) //timestamp
+					.replace( '%time%', dateFormat( new Date(), this.timeformat || options.timeformat ) ) //timestamp
 					.replace( '%event%', this.event[ this.color ] ) //log event & color
 					.replace( '%padding%', this.padding )
 					.replace( '%message%', message );
@@ -47,40 +50,26 @@ log_event.prototype.output = function(message, event) {
 
 exports.config = function( config ) {
 	for(var key in config) {
-		if(options.hasOwnPropert(key)) {
+		if(options.hasOwnProperty(key)) {
 			options[key] = config[key];
 		}
 	}
+	return this;
+}
+
+var nFn = function(e) {
+	return function() { if(arguments.length==0) { return events[e] } else { events[e].output(arguments) } }
 }
 
 exports.new = function(newEvents) {
-	for(var event in newEvents) {
+	for(event in newEvents) {
 		events[event] = new log_event( newEvents[event] );
-		this[event] = function() {
-			if(arguments.length==0) {
-				return events[event];
-			} else {
-				events[event].output(arguments);
-			}
-		}
+		this[event] = nFn(event);
 	}
 }
 
-
-exports.new({ info: { color: 'green', level: 0, event: 'info' } });
-
-exports.new({ warn: { color: 'green', level: 0, event: 'warning' } });
-
-console.log( exports.info().padding.length );
-
-//exports.output = function() {
-	
-//}
-
-	/*
-		EVENTS:
-		0 => info
-		1 => warning
-		2 => error
-	*/
-
+exports.new({
+	info: { color: 'green', level: 0, event: 'info' },
+	warn: { color: 'yellow', level: 1, event: 'warning' },
+	error: { color: 'red', level: 2, event: 'error' }
+});
