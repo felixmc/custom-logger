@@ -2,6 +2,10 @@
 
 `custom-logger` is a simple, yet highly customizable logging plugin for node.js.
 
+To install this module simply run:
+
+	npm install custom-logger
+
 I'm still very much still learning node.js, and this is my first "official" module. If you notice any unusual or depracated coding behaviors be sure to let me know, like I said, I'm still learning! (:
 
 If you have any questions or feedback, or need any help using this module, please contact <a href="http://twitter.com/#!/felix_mc" target="_blank">@felix_mc</a>.
@@ -30,6 +34,8 @@ The above code will render to:
 As you can see above, you can use the `level` parameter in the `config` method to set the current logging level. You can call the `config` method on the `log` object multiple times throughout your code to change the log level or other options.
 
 `custom-log` will only show events whose level is **equal to or higher** than the one set. For example a level of `0` will show all event types, whereas a level of `1` will only show the event types `warning` and `error`. By default the logging level is `0`.
+
+You can pass any number of parameters to a logging method like `log.info()` or `log.error`, regardless of it's a default method or one that you created (see below). `custom-logger` will join all parameters together in one string, converting JSON and other non-string parameters to strings automatically.
 
 ## Customizing Events Types
 
@@ -91,7 +97,7 @@ Which would output to:
 	warning [01:06:26]:  carefule there, world!
 	error   [01:06:26]:  WHOA WHOA WHOA world?!
 
-If you were to remove `%padding%` from the format string (which would result in `%event% [%timestamp%]: %message%`) the output would be:
+If you were to remove `%padding%` from the format string, the output would be:
 
 	info [01:10:12]:  hello world!
 	warning [01:10:12]:  carefule there, world!
