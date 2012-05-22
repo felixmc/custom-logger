@@ -1,71 +1,86 @@
 var dateFormat = require('dateformat'),
 	colors = require('colors');
 
-var log = {
-	events: { info: { color: 'green', level: 0 }, warning: { color: 'yellow', level: 1 }, error: { color: 'red', level: 2 } },
-	level: 3,
+var events = { };
+
+var options = {
+	level: 0,
 	logformat: "%time% - %event%:%padding%  %message%",
-	timeformat: "HH:MM:ss",
-	padding: function(event) {
-		var length = 0,
-			padding = '',
-			event = event || '';
-		for(var key in this.events) {
-			if(this.events.hasOwnProperty(key))
-				length = length < key.length ? key.length : length;
-		}
-		for(var i=0;i<length-event.length;i++) { padding += ' ' }
-		return padding;
-	},
-	output: function(message, event) {
-		/*
-			EVENTS:
-			0 => info
-			1 => warning
-			2 => error
-		*/
-		if(event == undefined) {
-			console.log( typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message );
-		} else if(this.level <= this.events[event].level ) {
-			message = typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message;
-			var output = this.logformat
-						.replace( '%time%', dateFormat( new Date(), this.timeformat ) ) //timestamp
-						.replace( '%event%', event[ this.events[event].color ] ) //log event & color
-						.replace( '%padding%', this.padding( event ) )
-						.replace( '%message%', message );
-			console.log( output );
-		}
-	}
+	timeformat: "HH:MM:ss"
 };
 
-exports.level = function(level) {
-	log.level = level;
+function log_event( options ) {
+	this.event = options.event;
+	this.level = options.level || 0;
+	this.color = options.color || 'green';
+};
+
+log_event.prototype.setName = function(name) { this.name = name };
+
+log_event.prototype.setLevel = function(level) { this.level = level };
+
+log_event.prototype.setColor = function(color) { this.color = color };
+
+log_event.prototype.__defineGetter__ ('padding', function() {
+	var length = 0,
+		padding = '';
+	for(var key in events) {
+		if(events.hasOwnProperty(key))
+			length = length < events[key].event.length ? events[key].event.length : length;
+	}
+	for(var i=0;i<length-this.event.length;i++) { padding += ' ' }
+	return padding;
+});
+
+log_event.prototype.output = function(message, event) {
+	if(options.level <= this.level ) {
+		message = typeof message == "object" ? JSON.stringify( message, null, "\t" ) : message;
+		var format = this.logformat || options.logformat;
+			output = format
+					.replace( '%time%', dateFormat( new Date(), this.timeformat || options.dateformat ) ) //timestamp
+					.replace( '%event%', this.event[ this.color ] ) //log event & color
+					.replace( '%padding%', this.padding )
+					.replace( '%message%', message );
+		console.log( output );
+	}
 }
 
-exports.format = function(format) {
-	log.logformat = format;
+exports.config = function( config ) {
+	for(var key in config) {
+		if(options.hasOwnPropert(key)) {
+			options[key] = config[key];
+		}
+	}
 }
 
-exports.timestamp = function(format) {
-	log.timeformat = format;
+exports.new = function(newEvents) {
+	for(var event in newEvents) {
+		events[event] = new log_event( newEvents[event] );
+		this[event] = function() {
+			if(arguments.length==0) {
+				return events[event];
+			} else {
+				events[event].output(arguments);
+			}
+		}
+	}
 }
 
-exports.new = function(options) {
-	if( log.events[ options.name ] == undefined )
-		log.events[ options.name ] = { color: options.color || 'green', level: options.level || 0 };	
-	else
-		log.events[ options.name ] = { color: options.color || log.events[ options.name ].color, level: options.level || log.events[ options.level ] };
-	return function(message) { log.output(message, options.name) }
-}
 
-exports.info = function(message) {
-	log.output(message, "info");
-}
+exports.new({ info: { color: 'green', level: 0, event: 'info' } });
 
-exports.warn = function(message) {
-	log.output(message, "warning");
-}
+exports.new({ warn: { color: 'green', level: 0, event: 'warning' } });
 
-exports.error = function(message) {
-	log.output(message, "error");
-}
+console.log( exports.info().padding.length );
+
+//exports.output = function() {
+	
+//}
+
+	/*
+		EVENTS:
+		0 => info
+		1 => warning
+		2 => error
+	*/
+
