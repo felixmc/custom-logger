@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/felixmc/custom-logger.png)](http://travis-ci.org/felixmc/custom-logger)
 # custom-logger
 
 `custom-logger` is a simple, highly customizable logging plugin for node.js.
