@@ -4,7 +4,9 @@
 
 To install this module simply run:
 
-	npm install custom-logger
+```bash
+npm install custom-logger
+```
 
 I'm still very much still learning node.js, and this is my first "official" module. If you notice any unusual or depracated coding behaviors be sure to let me know, like I said, I'm still learning! (:
 
@@ -13,13 +15,15 @@ If you have any questions or feedback, or need any help using this module, pleas
 
 ## Basic Usage
 
-	var log = require('custom-logger').config({ level: 0 });
+```javascript
+var log = require('custom-logger').config({ level: 0 });
 	
-	log.info( 'hello world!' );
+log.info( 'hello world!' );
+
+log.warn( 'carefule there, world!' );
 	
-	log.warn( 'carefule there, world!' );
-	
-	log.error( 'WHOA WHOA WHOA world?!' );
+log.error( 'WHOA WHOA WHOA world?!' );
+```
 
 The above code will render to: 
 
@@ -41,28 +45,34 @@ You can pass any number of parameters to logging methods (like log.info() or log
 
 One cool thing you can do with `custom-logger` is you easily create your own additional event types:
 
-	log.new({
-		debugger: { level: 1, event: "debug", color: "yellow" }
-	});
+```javascript
+log.new({
+	debugger: { level: 1, event: "debug", color: "yellow" }
+});
 	
-	log.debugger( "is this a bug?" ); //outputs "debug:  is this a bug?"
+log.debugger( "is this a bug?" ); //outputs "debug:  is this a bug?"
+```
 
 In the parameters passed to the `new` method, the key (`debugger`) is the method to be added to the module, where as the `event` property is what is going to be displayed in the log as the event type. Don't the get two confused!
 
 You can also overwrite the default events (`info`, `warn`, `error`) with your own if you'd like to:
 
-	log.new({
-		info: { color: 'cyan', level: 0, event: 'info' },
-		notice: { color: 'yellow', level: 1, event: 'notice' },
-		warn: { color: 'yellow', level: 2, event: 'warning' },
-		error: { color: 'red', level: 3, event: 'ERROR' }
-	});
+```javascript
+log.new({
+	info: { color: 'cyan', level: 0, event: 'info' },
+	notice: { color: 'yellow', level: 1, event: 'notice' },
+	warn: { color: 'yellow', level: 2, event: 'warning' },
+	error: { color: 'red', level: 3, event: 'ERROR' }
+});
+```
 
 However, if all you you want to do is change some of the properties, you can also do the following:
 
-	log.info().config({ color: 'cyan' });
+```javascript
+log.info().config({ color: 'cyan' });
 
-	log.info('Hello World!'); //output should be cyan now
+log.info('Hello World!'); //output should be cyan now
+```
 
 Make sure not to pass anything to the `info` method when you are configuring it, otherwise you'll probably get an error. This is the only *ugly* part of the syntax (hopefully!), I will probably fix it at a later time.
 
@@ -117,11 +127,13 @@ Which should look familiar to those familiar with date formatting in other progr
 
 You can also overwrite global settings for log template and timestamp format based on individual event types, either when you create them or by modifying existing ones:
 
-	log.new({
-		alert: { level: 3, color: 'red', event: 'alert', format: '!!!!!%event% : %message% !!!!!' }
-	});
+```javascript
+log.new({
+	alert: { level: 3, color: 'red', event: 'alert', format: '!!!!!%event% : %message% !!!!!' }
+});
 
-	log.error().config({ timestamp: "HH:MM:ss" });
+log.error().config({ timestamp: "HH:MM:ss" });
+```
 
 ## Further Details
 
