@@ -17,6 +17,8 @@ If you have any questions or feedback, or need any help using this module, pleas
 
 ```javascript
 var log = require('custom-logger').config({ level: 0 });
+
+log.debug( 'hello?' );
 	
 log.info( 'hello world!' );
 
@@ -31,13 +33,14 @@ The above code will render to:
 
 `custom-logger` uses logging levels and different event types to determine what is being outputed at any given time. Below are the default events and their respective logging levels:
 
-	0 => info
-	1 => warn
-	2 => error
+	0 => debug
+	1 => info
+	2 => warn
+	3 => error
 
 As you can see above, you can use the level parameter in the config method to set the current logging level. You can call on the config method on the log object at any time throughout your code to change the log level or other options.
 
-`custom-log` will only show events whose level is **equal to or higher** than the one set. For example a level of `0` will show all event types, whereas a level of `1` will only show the event types `warning` and `error`. By default the logging level is `0`.
+`custom-log` will only show events whose level is **equal to or higher** than the one set. For example a level of `0` will show all event types, whereas a level of `2` will only show the event types `warning` and `error`. By default the logging level is `0`.
 
 You can pass any number of parameters to logging methods (like log.info() or log.error), regardless of whether they are a default method or one that you created (see below). custom-logger will join all parameters together in one string, converting JSON and other non-string parameters to strings automatically.
 
@@ -47,10 +50,10 @@ One cool thing you can do with `custom-logger` is you easily create your own add
 
 ```javascript
 log.new({
-	debugger: { level: 1, event: "debug", color: "yellow" }
+	fatal: { level: 5, event: "fatal", color: "rainbow" }
 });
 	
-log.debugger( "is this a bug?" ); //outputs "debug:  is this a bug?"
+log.fatal( "program is dead" ); //outputs "fatal:  program is dead"
 ```
 
 In the parameters passed to the `new` method, the key (`debugger`) is the method to be added to the module, where as the `event` property is what is going to be displayed in the log as the event type. Don't the get two confused!
@@ -93,6 +96,7 @@ By default the format string is:
 	
 Which produces the output:
 
+	01:08:24 - debug:     hello?
 	01:08:24 - info:      hello world!
 	01:08:24 - warning:   carefule there, world!
 	01:08:24 - error:     WHOA WHOA WHOA world?!
@@ -105,12 +109,14 @@ var log = require('custom-logger').config({ format: "%event% %padding%[%timestam
 
 Which would output to:
 
+	debug   [01:06:26]:  hello?
 	info    [01:06:26]:  hello world!
 	warning [01:06:26]:  carefule there, world!
 	error   [01:06:26]:  WHOA WHOA WHOA world?!
 
 If you were to remove `%padding%` from the format string, the output would be:
 
+	debug [01:10:12]:  hello?
 	info [01:10:12]:  hello world!
 	warning [01:10:12]:  carefule there, world!
 	error [01:10:12]:  WHOA WHOA WHOA world?!
