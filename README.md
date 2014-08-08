@@ -119,7 +119,9 @@ I hope this helps illustrate the purpose of `%padding%`.
 
 You can also modify the format of the actual `%timestamp%`. By default it's `HH:MM:ss`. You can change it as follows:
 
-	var log = require('custom-logger').config({ timestamp: "h:MM:ss TT" });
+```javascript
+var log = require('custom-logger').config({ timestamp: "h:MM:ss TT" });
+```
 
 Which should look familiar to those familiar with date formatting in other programming languages. For more information on formatting the timestamp, see <a href="http://blog.stevenlevithan.com/archives/date-time-format" target="_blank">this</a>. Since this modules relies on the `dateFormat` library, any values valid for `dateFormat` should be valid here too.
 
