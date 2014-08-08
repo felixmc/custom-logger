@@ -12,7 +12,7 @@ var options = {
 function log_event( options ) {
 	this.event = options.event;
 	this.level = options.level || 0;
-	this.color = options.color || 'green';
+	this.color = options.color || 'white';
 };
 
 log_event.prototype.config = function( config ) {
@@ -37,7 +37,7 @@ log_event.prototype.output = function(input) {
 	if(options.level <= this.level ) {
 		var message = '';
 		for(var i in input) {
-			message += " " + ( typeof input[i] == "object" ? JSON.stringify( input[i], null ) : input[i] );
+			message += " " + ( typeof input[i] === "object" ? JSON.stringify( input[i], null ) : input[i] );
 		}
 		var format = this.format || options.format;
 			output = format
@@ -71,7 +71,8 @@ exports.new = function(newEvents) {
 }
 
 exports.new({
-	info: { color: 'green', level: 0, event: 'info' },
-	warn: { color: 'yellow', level: 1, event: 'warning' },
-	error: { color: 'red', level: 2, event: 'error' }
+	debug: { color: 'grey', level: 0, event: 'debug' },
+	info: { color: 'green', level: 1, event: 'info' },
+	warn: { color: 'yellow', level: 2, event: 'warning' },
+	error: { color: 'red', level: 3, event: 'error' }
 });
