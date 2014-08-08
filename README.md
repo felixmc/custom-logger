@@ -99,7 +99,9 @@ Which produces the output:
 
 You can specify the output format like so:
 
-	var log = require('custom-logger').config({ format: "%event% %padding%[%timestamp%]: %message%" });
+```javascript
+var log = require('custom-logger').config({ format: "%event% %padding%[%timestamp%]: %message%" });
+```
 
 Which would output to:
 
