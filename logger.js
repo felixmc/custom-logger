@@ -40,7 +40,7 @@ log_event.prototype.output = function(input) {
 			message += " " + ( typeof input[i] === "object" ? JSON.stringify( input[i], null ) : input[i] );
 		}
 		var format = this.format || options.format;
-			output = format
+		var output = format
 					.replace( '%timestamp%', dateFormat( new Date(), this.timestamp || options.timestamp ) ) //timestamp
 					.replace( '%event%', this.event[ this.color ] ) //log event & color
 					.replace( '%padding%', this.padding )
