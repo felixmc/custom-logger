@@ -74,7 +74,7 @@ var LogEvent = (function() {
   *
   * @param  {Object}  input
   */
-  log_event.prototype.output = function(input) {
+  LogEvent.prototype.output = function(input) {
     if(options.level <= this.level ) {
       var message = '';
       for(var i in input) {
