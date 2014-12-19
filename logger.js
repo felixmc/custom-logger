@@ -5,7 +5,8 @@
 
 // Module imports
 var dateFormat = require('dateformat'),
-  colors = require('colors');
+  colors = require('colors'),
+  util = require("util");
 
 
 // Container for Events registered by module
@@ -70,19 +71,12 @@ var LogEvent = (function() {
 
   /**
   * Outputting the Event to Screen, only if its event is equal or above
-  * the configuration level. Uses `console.log`
-  *
-  * @param  {Object}  input
+  * the configuration level. Uses `console.log`. Function signature
+  * resembles that of Node.js `util.format()`
   */
   LogEvent.prototype.output = function(input) {
     if(options.level <= this.level ) {
-      var message = '';
-      for(var i in input) {
-        message += " ";
-        message += ( typeof input[i] === "object"
-          ? JSON.stringify( input[i], null )
-          : input[i] );
-      }
+      var message = util.format.apply(null, input);
       var format = this.format || options.format;
       var output = format
             .replace( '%timestamp%', dateFormat( new Date(), this.timestamp || options.timestamp ) ) //timestamp
