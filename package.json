@@ -1,7 +1,7 @@
 {
 	"name": "custom-logger",
 	"description": "Simple yet highly customizable console logger for node.js. Supports templating output, custom log levels, custom log types, and colored output.",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"author": "Felix Milea-Ciobanu <felixmilea@gmail.com> (http://felixmc.com/)",
 	"repository": {
 		"type": "git",
