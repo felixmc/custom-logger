@@ -164,3 +164,21 @@ For examples, the longest string of the above events is `warning`, with 7 charac
 	error.length = 5    ===>  7 - 5 = 2  ===> "  "
 
 If this confuses you, don't worry much about it, you don't have to use it. I simply included it to make outputing to the console prettier.
+
+### Message Formatting
+
+Message Formatting
+
+Messages can be formatted using util.format by setting the config option messageFormatting to true. This defaults to false to ensure backward compatibility with versions prior to 0.3.1.
+
+For example:
+
+```javascript
+log.info("I see", "3", "bananas!") // Outputs "I see 3 bananas!"
+
+log.config({
+	messageFormatting: true
+});
+
+log.info("I see %d %s!", 3, "bananas"); // Outputs "I see 3 bananas!"
+```
