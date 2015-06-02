@@ -25,6 +25,12 @@ log.info( 'hello world!' );
 log.warn( 'carefule there, world!' );
 	
 log.error( 'WHOA WHOA WHOA world?!' );
+
+log.config({
+	messageFormatting: true
+});
+
+log.info("I see %d %s!", 3, "bananas"); // Outputs "I see 3 bananas!"
 ```
 
 The above code will render to: 
