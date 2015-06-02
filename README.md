@@ -30,7 +30,7 @@ log.config({
 	messageFormatting: true
 });
 
-log.info("I see %d %s!", 3, "bananas"); // Outputs "I see 3 bananas!"
+log.info("I see %d %s!", 3, "bananas");
 ```
 
 The above code will render to: 
