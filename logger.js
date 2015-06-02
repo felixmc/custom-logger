@@ -39,7 +39,7 @@ log_event.prototype.output = function(input) {
 	if(options.level <= this.level ) {
 		var message = '';
 		if (options.messageFormatting) {
-			message = util.format.apply(util, input);
+			message = " " + util.format.apply(util, input);
 		} else {
 			for(var i in input) {
 				message += " " + ( typeof input[i] === "object" ? JSON.stringify( input[i], null ) : input[i] );
