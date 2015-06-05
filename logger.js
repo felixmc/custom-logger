@@ -1,12 +1,14 @@
 var dateFormat = require('dateformat'),
-	colors = require('colors');
+	colors = require('colors'),
+	util = require('util');
 
 var events = { };
 
 var options = {
 	level: 0,
 	format: "%timestamp% - %event%:%padding%  %message%",
-	timestamp: "HH:MM:ss"
+	timestamp: "HH:MM:ss",
+	messageFormatting: false
 };
 
 function log_event( options ) {
@@ -36,8 +38,12 @@ log_event.prototype.__defineGetter__ ('padding', function() {
 log_event.prototype.output = function(input) {
 	if(options.level <= this.level ) {
 		var message = '';
-		for(var i in input) {
-			message += " " + ( typeof input[i] === "object" ? JSON.stringify( input[i], null ) : input[i] );
+		if (options.messageFormatting) {
+			message = " " + util.format.apply(util, input);
+		} else {
+			for(var i in input) {
+				message += " " + ( typeof input[i] === "object" ? JSON.stringify( input[i], null ) : input[i] );
+			}
 		}
 		var format = this.format || options.format;
 		var output = format
