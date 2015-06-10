@@ -1,4 +1,4 @@
-# custom-logger
+# custom-logger [![npm version](https://badge.fury.io/js/custom-logger.svg)](http://badge.fury.io/js/custom-logger)
 
 `custom-logger` is a simple, highly customizable logging plugin for node.js.
 
@@ -19,11 +19,11 @@ If you have any questions or feedback, or need any help using this module, pleas
 var log = require('custom-logger').config({ level: 0 });
 
 log.debug( 'hello?' );
-	
+
 log.info( 'hello world!' );
 
 log.warn( 'carefule there, world!' );
-	
+
 log.error( 'WHOA WHOA WHOA world?!' );
 
 log.config({
@@ -33,9 +33,9 @@ log.config({
 log.info("I see %d %s!", 3, "bananas");
 ```
 
-The above code will render to: 
+The above code will render to:
 
-![basic output snapshot](https://github.com/felixmc/custom-logger/raw/master/snapshots/basic.png)
+![basic output snapshot](snapshots/basic.png)
 
 `custom-logger` uses logging levels and different event types to determine what is being outputed at any given time. Below are the default events and their respective logging levels:
 
@@ -58,7 +58,7 @@ One cool thing you can do with `custom-logger` is you easily create your own add
 log.new({
 	fatal: { level: 5, event: "fatal", color: "rainbow" }
 });
-	
+
 log.fatal( "program is dead" ); //outputs "fatal:  program is dead"
 ```
 
@@ -99,7 +99,7 @@ Using `custom-logger` you can also configure how the console output will look li
 By default the format string is:
 
 	%timestamp% - %event%:%padding%  %message%
-	
+
 Which produces the output:
 
 	01:08:24 - debug:     hello?
@@ -173,9 +173,7 @@ If this confuses you, don't worry much about it, you don't have to use it. I sim
 
 ### Message Formatting
 
-Message Formatting
-
-Messages can be formatted using util.format by setting the config option messageFormatting to true. This defaults to false to ensure backward compatibility with versions prior to 0.3.1.
+Messages can be formatted using `util.format` by setting the config option `messageFormatting` to `true`. This defaults to `false` to ensure backward compatibility with versions prior to 0.3.1.
 
 For example:
 
