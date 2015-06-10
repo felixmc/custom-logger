@@ -19,11 +19,11 @@ If you have any questions or feedback, or need any help using this module, pleas
 var log = require('custom-logger').config({ level: 0 });
 
 log.debug( 'hello?' );
-	
+
 log.info( 'hello world!' );
 
 log.warn( 'carefule there, world!' );
-	
+
 log.error( 'WHOA WHOA WHOA world?!' );
 
 log.config({
@@ -33,7 +33,7 @@ log.config({
 log.info("I see %d %s!", 3, "bananas");
 ```
 
-The above code will render to: 
+The above code will render to:
 
 ![basic output snapshot](https://github.com/felixmc/custom-logger/raw/master/snapshots/basic.png)
 
@@ -58,7 +58,7 @@ One cool thing you can do with `custom-logger` is you easily create your own add
 log.new({
 	fatal: { level: 5, event: "fatal", color: "rainbow" }
 });
-	
+
 log.fatal( "program is dead" ); //outputs "fatal:  program is dead"
 ```
 
@@ -99,7 +99,7 @@ Using `custom-logger` you can also configure how the console output will look li
 By default the format string is:
 
 	%timestamp% - %event%:%padding%  %message%
-	
+
 Which produces the output:
 
 	01:08:24 - debug:     hello?
