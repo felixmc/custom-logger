@@ -173,9 +173,7 @@ If this confuses you, don't worry much about it, you don't have to use it. I sim
 
 ### Message Formatting
 
-Message Formatting
-
-Messages can be formatted using util.format by setting the config option messageFormatting to true. This defaults to false to ensure backward compatibility with versions prior to 0.3.1.
+Messages can be formatted using `util.format` by setting the config option `messageFormatting` to `true`. This defaults to `false` to ensure backward compatibility with versions prior to 0.3.1.
 
 For example:
 
