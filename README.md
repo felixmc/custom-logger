@@ -35,7 +35,7 @@ log.info("I see %d %s!", 3, "bananas");
 
 The above code will render to:
 
-![basic output snapshot](https://github.com/felixmc/custom-logger/raw/master/snapshots/basic.png)
+![basic output snapshot](snapshots/basic.png)
 
 `custom-logger` uses logging levels and different event types to determine what is being outputed at any given time. Below are the default events and their respective logging levels:
 
