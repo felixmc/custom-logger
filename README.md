@@ -1,4 +1,4 @@
-# custom-logger
+# custom-logger [![npm version](https://badge.fury.io/js/custom-logger.svg)](http://badge.fury.io/js/custom-logger)
 
 `custom-logger` is a simple, highly customizable logging plugin for node.js.
 
