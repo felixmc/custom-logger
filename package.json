@@ -12,7 +12,7 @@
 		"node": ">=0.1.90"
 	},
 	"dependencies": {
-		"colors": "0.6.0-1",
+		"colors": "^1.1.0",
 		"dateformat": "1.0.2-1.2.3"
 	},
 	"licenses": [
