@@ -30,7 +30,7 @@ log.config({
 	messageFormatting: true
 });
 
-log.info("I see %d %s!", 3, "bananas");
+log.info('I see %d %s!', 3, 'bananas');
 ```
 
 The above code will render to:
@@ -56,10 +56,10 @@ One cool thing you can do with `custom-logger` is you easily create your own add
 
 ```javascript
 log.new({
-	fatal: { level: 5, event: "fatal", color: "rainbow" }
+	fatal: { level: 5, event: 'fatal', color: 'rainbow' }
 });
 
-log.fatal( "program is dead" ); //outputs "fatal:  program is dead"
+log.fatal( 'program is dead!' ); //outputs "fatal:  program is dead"
 ```
 
 In the parameters passed to the `new` method, the key (`debugger`) is the method to be added to the module, where as the `event` property is what is going to be displayed in the log as the event type. Don't the get two confused!
@@ -110,7 +110,7 @@ Which produces the output:
 You can specify the output format like so:
 
 ```javascript
-var log = require('custom-logger').config({ format: "%event% %padding%[%timestamp%]: %message%" });
+var log = require('custom-logger').config({ format: '%event% %padding%[%timestamp%]: %message%' });
 ```
 
 Which would output to:
@@ -134,7 +134,7 @@ I hope this helps illustrate the purpose of `%padding%`.
 You can also modify the format of the actual `%timestamp%`. By default it's `HH:MM:ss`. You can change it as follows:
 
 ```javascript
-var log = require('custom-logger').config({ timestamp: "h:MM:ss TT" });
+var log = require('custom-logger').config({ timestamp: 'h:MM:ss TT' });
 ```
 
 Which should look familiar to those familiar with date formatting in other programming languages. For more information on formatting the timestamp, see <a href="http://blog.stevenlevithan.com/archives/date-time-format" target="_blank">this</a>. Since this modules relies on the `dateFormat` library, any values valid for `dateFormat` should be valid here too.
@@ -148,7 +148,7 @@ log.new({
 	alert: { level: 3, color: 'red', event: 'alert', format: '!!!!!%event% : %message% !!!!!' }
 });
 
-log.error().config({ timestamp: "HH:MM:ss" });
+log.error().config({ timestamp: 'HH:MM:ss' });
 ```
 
 ## Further Details
@@ -178,11 +178,11 @@ Messages can be formatted using `util.format` by setting the config option `mess
 For example:
 
 ```javascript
-log.info("I see", "3", "bananas!") // Outputs "I see 3 bananas!"
+log.info('I see', '3', 'bananas!') // Outputs "I see 3 bananas!"
 
 log.config({
 	messageFormatting: true
 });
 
-log.info("I see %d %s!", 3, "bananas"); // Outputs "I see 3 bananas!"
+log.info('I see %d %s!', 3, 'bananas'); // Outputs "I see 3 bananas!"
 ```
